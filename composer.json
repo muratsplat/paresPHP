@@ -1,0 +1,27 @@
+{
+    "name": "muratodunc/pares-php",
+    "description": "Simple PARes parser for PHP",
+    "type": "library",
+    "require": {
+        "phpunit/phpunit": "~4.6",
+        "dflydev/dot-access-data": "^1.1"
+    },
+    "license": "GPL-v3",
+    "authors": [
+        {
+            "name": "Murat Ödünç",
+            "email": "murat.asya@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Muratsplat\\ParesPHP\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Muratsplat\\ParesPHP\\": "tests/"
+        }
+    }
+}
