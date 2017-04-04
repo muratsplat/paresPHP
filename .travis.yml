@@ -8,3 +8,8 @@ php:
   - hhvm
   - nightly
 
+before_script:
+  - travis_retry composer self-update
+  - travis_retry composer install --prefer-source --no-interaction --dev
+
+script: phpunit
