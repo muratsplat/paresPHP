@@ -24,6 +24,11 @@ class Parser
      */
     private $errors = [];
 
+    /*
+     *  Errors
+     */
+    const UNZIP_ERROR = "zlib_decode(): data error";
+
     /**
      * Pares constructor.
      * @param string|null $pares
@@ -43,6 +48,14 @@ class Parser
     }
 
     /**
+     * @return array
+     */
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+
+    /**
      * @return bool
      * @throws InvalidArgument
      */
@@ -52,7 +65,12 @@ class Parser
 
         try {
             $decoded = static::decodeBase64($raw);
+
             $unZip = static::unZip($decoded);
+            if ($this->isUnzipFailed()) {
+                throw new InvalidArgument("Expected zip content is broken!");
+            }
+
             $array = $this->xmlToArray($unZip);
             $this->pares = $this->mapPARes($array);
             return true;
@@ -60,6 +78,18 @@ class Parser
             $this->errors[] = $e->getMessage();
             return false;
         }
+    }
+
+    /**
+     * @return bool
+     */
+    private function isUnzipFailed()
+    {
+        $lastError = error_get_last();
+        if (empty($lastError)) {
+            return false;
+        }
+        return in_array(static::UNZIP_ERROR, $lastError);
     }
 
     /**
@@ -117,9 +147,13 @@ class Parser
         throw new InvalidArgument("The content is not parsed as XML document !");
     }
 
+    /**
+     * @param string $pares
+     */
     public function import($pares)
     {
         $this->raw = $pares;
+        $this->pares = null;
     }
 
     /**
@@ -143,7 +177,7 @@ class Parser
      */
     private static function unZip($string)
     {
-        return zlib_decode($string);
+        return @zlib_decode($string);
     }
 
     /**

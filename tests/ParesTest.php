@@ -64,6 +64,44 @@ class ParesTest extends TestCase
         $this->assertSame('3', $dto->getTXcavvAlgorithm());
         $this->assertSame('20150216 10:17:23', $dto->getTXTime());
         $this->assertSame('20150216 10:17:41', $dto->getDate());
+    }
+
+    /**
+     * @depends testParasResource
+     * @param string $pares
+     * @return Parser
+     */
+    public function testParseTwo($pares)
+    {
+        $parser = new Parser($pares);
+        $this->assertTrue($parser->parse());
+        $dto = $parser->export();
+        $this->assertSame(526571, $dto->getAcquirerBIN());
+        $this->assertSame('02000000000', $dto->getMerchantID());
+        $this->assertSame('MDAwMDAwMDAwMDEyMzQ1Njc4OTA=', $dto->getXID());
+        $this->assertSame(21601, $dto->getAmount());
+        $this->assertSame(208, $dto->getCurrency());
+        $this->assertSame(2, $dto->getExponent());
+        $this->assertSame('02', $dto->getTXECI());
+        $this->assertSame('jI3JBkkaQ1p8CBAAABy0CHUAAAA=', $dto->getTXCAVV());
+        $this->assertSame('Y', $dto->getTXStatus());
+        $this->assertSame('3', $dto->getTXcavvAlgorithm());
+        $this->assertSame('20150216 10:17:23', $dto->getTXTime());
+        $this->assertSame('20150216 10:17:41', $dto->getDate());
+    }
+
+    /**
+     * @return Parser
+     */
+    public function testFailParse()
+    {
+        $parser = new Parser('invalid pares');
+        $this->assertFalse($parser->parse());
+        $dto = $parser->export();
+        $this->assertSame(null, $dto);
+        $this->assertTrue($parser->hasError());
+        $this->assertNotEmpty($parser->getErrors());
+        $this->assertSame('Expected zip content is broken!', $parser->getErrors()[0]);
 
     }
 }
