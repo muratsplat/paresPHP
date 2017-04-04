@@ -88,8 +88,7 @@ class Parser
         if (empty($lastError)) {
             return false;
         }
-        var_dump($lastError);
-        return in_array(static::UNZIP_ERROR, $lastError);
+        return in_array(static::UNZIP_ERROR, $lastError) || in_array('data error', $lastError);
     }
 
     /**
