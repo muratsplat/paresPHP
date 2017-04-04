@@ -45,7 +45,7 @@ class ParesTest extends TestCase
 
     /**
      * @depends testNewObj
-     * @param $pares
+     * @param Parser $parser
      * @return Parser
      */
     public function testParse(Parser $parser)
@@ -66,6 +66,4 @@ class ParesTest extends TestCase
         $this->assertSame('20150216 10:17:41', $dto->getDate());
 
     }
-
-
 }
