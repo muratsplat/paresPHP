@@ -2,7 +2,6 @@
 
 namespace Muratsplat\ParesPHP;
 
-use DOMDocument;
 use Dflydev\DotAccessData\Data;
 use Muratsplat\ParesPHP\Exception\InvalidArgument;
 

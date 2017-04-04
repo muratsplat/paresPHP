@@ -2,7 +2,7 @@
 
 namespace Muratsplat\ParesPHP;
 
-class Pares extends \stdClass
+class Pares
 {
     /**
      * @var int
