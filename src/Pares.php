@@ -64,6 +64,11 @@ class Pares
      */
     private $txCAVVAlgorithm;
 
+    /**
+     * @var string
+     */
+    private $rawXml;
+
 
     /**
      * @param int $bin
@@ -255,6 +260,22 @@ class Pares
     public function getTXcavvAlgorithm()
     {
         return $this->txCAVVAlgorithm;
+    }
+
+    /**
+     * @param string $string
+     */
+    public function setRawXML($string)
+    {
+        $this->rawXml = $string;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRawXML()
+    {
+        return $this->rawXml;
     }
 
     /*

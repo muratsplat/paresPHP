@@ -72,6 +72,7 @@ class Parser
 
             $array = $this->xmlToArray($unZip);
             $this->pares = $this->mapPARes($array);
+            $this->pares->setRawXML($unZip);
             return true;
         } catch (InvalidArgument $e) {
             $this->errors[] = $e->getMessage();
